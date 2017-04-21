@@ -109,7 +109,9 @@
 		
 		$result = pg_query($conn,"SELECT DISTINCT m.nama AS nama_menu, m.deskripsi, m.harga, m.jumlahtersedia, k.nama AS nama_kategori FROM menu m, menu_harian mh, kategori k where m.nama=mh.namamenu AND m.kategori=k.kode AND extract(day from waktu)=".$day." AND extract(month from waktu)=".$month." AND extract(year from waktu)=".$year."ORDER BY nama_menu ASC LIMIT ".$limit." OFFSET ".$offset);
 
-		$numrow = pg_num_rows($result);
+		$resultForAppend = pg_query($conn,"SELECT DISTINCT m.nama AS nama_menu, m.deskripsi, m.harga, m.jumlahtersedia, k.nama AS nama_kategori FROM menu m, menu_harian mh, kategori k where m.nama=mh.namamenu AND m.kategori=k.kode AND extract(day from waktu)=".$day." AND extract(month from waktu)=".$month." AND extract(year from waktu)=".$year."ORDER BY nama_menu ASC");
+
+		$numrow = pg_num_rows($resultForAppend);
 		pg_close($conn);
 		
 		$ret = '<ul class="pagination pagination-lg">';
